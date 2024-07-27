@@ -1,13 +1,13 @@
 variable "name" {
   description = "Unique identifier for the user"
   type        = string
-  default     = ""          # to replace
+  default     = "" # to replace
 }
 
 variable "vpc_id" {
   description = "Virtural Private Cloud ID"
   type        = string
-  default     = ""          # to replace
+  default     = "" # to replace
 }
 
 variable "enable_blue_env" {
