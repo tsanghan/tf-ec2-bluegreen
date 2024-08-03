@@ -6,6 +6,8 @@ on:
 jobs:
   CD:
     runs-on: ubuntu-latest
+    env:
+      AWS_REGION: ap-southeast-1
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -15,16 +17,17 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ vars.AWS_REGION }}
+        aws-region: ${{ env.AWS_REGION }}
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      # uses: hashicorp/setup-terraform@v2
+      uses: opentofu/setup-opentofu@v1
 
     - name: Terraform Init
-      run: terraform init
+      run: tofu init -backend=false
 
     - name: Terraform Apply
-      run: terraform apply -no-color -auto-approve
+      run: tofu apply -no-color -auto-approve
 
     - name: Export terraform outputs
       id: tfout

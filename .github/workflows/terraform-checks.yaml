@@ -23,19 +23,20 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
+      # uses: hashicorp/setup-terraform@v2
+      uses: opentofu/setup-opentofu@v1
 
     - name: Terraform Init
       id: Init
-      run: terraform init
+      run: tofu init
 
     - name: Terraform fmt
       id: fmt
-      run: terraform fmt -check
+      run: tofu fmt -check
 
     - name: Terraform Validate
       id: validate
-      run: terraform validate -no-color
+      run: tofu validate -no-color
 
     - uses: terraform-linters/setup-tflint@v3
       with:
