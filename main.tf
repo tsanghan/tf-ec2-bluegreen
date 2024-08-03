@@ -53,11 +53,10 @@ resource "aws_security_group" "app" {
   vpc_id      = data.aws_vpc.selected.id
 
   ingress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
   }
 
   egress {
@@ -84,7 +83,7 @@ resource "aws_lb_listener" "app" {
   protocol          = "HTTP"
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.blue.arn
     # forward {
     #   target_group {
