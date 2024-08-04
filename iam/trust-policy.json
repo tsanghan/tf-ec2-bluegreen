@@ -1,0 +1,18 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Principal": {
+				"Federated": "arn:aws:iam::255945442255:oidc-provider/token.actions.githubusercontent.com"
+			},
+			"Action": "sts:AssumeRoleWithWebIdentity",
+			"Condition": {
+				"StringEquals": {
+					"token.actions.githubusercontent.com:sub": "repo:tsanghan/tf-ec2-bluegreen:ref:refs/heads/main",
+					"token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+				}
+			}
+		}
+	]
+}
